@@ -414,7 +414,6 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
 			}
 
 			// カラムNoが未設定の場合は、カラムNoを付与する
-			var_dump($metadata['col_no']);
 			if (!isset($metadata['col_no']) || empty($metadata['col_no'])) {
 				// 空きカラムNoの取得
 				$colNos = $this->getFreeColNo($metadatas, $colNos);

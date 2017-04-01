@@ -428,7 +428,7 @@ class MultidatabaseContentViewHelper extends AppHelper {
 		}
 
 		$fileUrl = $this->fileDlUrl($content, $colNo);
-		$result = '<img src="' . $fileUrl . '" alt="">';
+		$result = '<img src="' . $fileUrl . '" alt="" style="width:100%">';
 		return $result;
 	}
 
@@ -621,7 +621,7 @@ class MultidatabaseContentViewHelper extends AppHelper {
 			$colNo = 0;
 			$name = '';
 			if (
-				(int)$metadata['is_searchable'] === 1 &&
+				(int)$metadata['is_sortable'] === 1 &&
 				$metadata['type'] <> 'created' &&
 				$metadata['type'] <> 'updated'
 			) {

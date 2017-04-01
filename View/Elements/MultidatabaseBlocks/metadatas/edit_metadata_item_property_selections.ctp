@@ -52,8 +52,7 @@
 
 					<input type="text"
 					       name="data[MultidatabaseMetadata][<?php echo $gPos; ?>][{{$parent.$index}}][selections][{{$index}}]"
-					       ng-model="s" class="form-control" required autofocus>
-
+					       class="form-control" ng-model="metadataGroup<?php echo $gPos; ?>[$parent.$index]['selections'][$index]">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default"
 						        tooltip="<?php echo __d('net_commons', 'Delete'); ?>"

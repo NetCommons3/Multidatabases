@@ -114,6 +114,9 @@ class MultidatabaseContentEditHelper extends AppHelper {
 		$name = 'MultidatabaseContent.value' . $metadata['col_no'];
 		$options['id'] = $name;
 		$options['label'] = $metadata['name'];
+		if ((int)$metadata['is_require'] === 1) {
+			$options['required'] = true;
+		}
 		$elementType = $metadata['type'];
 
 		$result = '';

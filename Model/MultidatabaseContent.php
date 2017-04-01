@@ -469,7 +469,7 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 						break;
 					default:
 						$tmp['rule'][] = 'notBlank';
-						$tmp['allowEmpty'] = false;
+						$tmp['message'] = sprintf(__d('net_commons', 'Please input %s.'), $metadata['name']);
 						break;
 				}
 				$tmp['required'] = true;
@@ -581,6 +581,13 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 								$data['MultidatabaseContent'][$key] = implode('||', $tmpRes);
 							}
 							break;
+						/*
+						case 'autonumber':
+							$currentNum = $multidatabase['Multidatabase']['auto_number_sequence'];
+							$myNum = $currentNum + 1;
+							$data['MultidatabaseContent'][$key] = $myNum;
+							// Multidatabasesを更新
+						*/
 						case 'file':
 						case 'image':
 							if (empty($data['MultidatabaseContent'][$key]['name'])) {
