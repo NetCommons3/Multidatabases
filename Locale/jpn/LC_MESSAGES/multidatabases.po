@@ -291,3 +291,6 @@ msgstr "いずれか（Or検索）"
 
 msgid "Phrase search"
 msgstr "フレーズ"
+
+msgid "Show contents sort type"
+msgstr "表示順"
