@@ -27,7 +27,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_1',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '1',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '1',
@@ -38,7 +37,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_2',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '1',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '1',
@@ -49,7 +47,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_3',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '1',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '1',
@@ -60,7 +57,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_4',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '1',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '1',
@@ -71,7 +67,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_5',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '1',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '1',
@@ -82,7 +77,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_6',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '2',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '2',
@@ -93,7 +87,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_7',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '2',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '2',
@@ -104,7 +97,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_8',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '2',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '2',
@@ -115,7 +107,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_9',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '2',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '2',
@@ -126,7 +117,6 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
 			'frame_key' => 'frame_key_10',
 			'content_per_page' => '5',
 			'default_sort_type' => '',
-			'default_sort_order' => '1',
 			'created_user' => '2',
 			'created' => '2016/04/01 1:10:20',
 			'modified_user' => '2',
@@ -140,8 +130,8 @@ class MultidatabaseFrameSettingFixture extends CakeTestFixture {
  * @return void
  */
 	public function init() {
-		require_once App::pluginPath('Links') . 'Config' . DS . 'Schema' . DS . 'schema.php';
-		$this->fields = (new LinksSchema())->tables[Inflector::tableize($this->name)];
+		require_once App::pluginPath('Multidatabases') . 'Config' . DS . 'Schema' . DS . 'schema.php';
+		$this->fields = (new MultidatabasesSchema())->tables[Inflector::tableize($this->name)];
 		parent::init();
 	}
 }

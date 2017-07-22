@@ -220,7 +220,7 @@ class MultidatabasesSchema extends CakeSchema {
 /**
  * @var array $multidatabaseMetadataSettings multidatabaseMetadataSettings
  */
-	public $multidatabaseMetadataSettings = array(
+	public $multidatabase_metadata_settings = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary', 'comment' => 'ID'),
 		'auto_number_sequence' => array('type' => 'integer', 'null' => true, 'default' => 0, 'unsigned' => false, 'comment' => '自動採番'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => '0', 'unsigned' => false, 'comment' => '作成者'),

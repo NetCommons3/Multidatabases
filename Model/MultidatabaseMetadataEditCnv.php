@@ -122,7 +122,7 @@ class MultidatabaseMetadataEditCnv extends MultidatabasesAppModel {
 			$result[$key] = $this->__normalizeEditMetadataValue($metadata, $key);
 
 			if ($this->dataType[$key] === 'json') {
-				$result[$key] = $this->__normalizeEditMetadataJson($metadata, $key);
+				$result[$key] = $this->__normalizeEditMetadataJson($metadata);
 			}
 		}
 		return $result;
@@ -136,7 +136,7 @@ class MultidatabaseMetadataEditCnv extends MultidatabasesAppModel {
  * @param string $key メタデータキー
  * @return array
  */
-	private function __normalizeEditMetadataJson($metadata, $key) {
+	private function __normalizeEditMetadataJson($metadata) {
 		if (! empty($metadata)) {
 			if (is_array($metadata)) {
 				return $metadata;

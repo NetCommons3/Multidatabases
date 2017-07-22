@@ -29,7 +29,7 @@ class AllMultidatabaseModelMultidatabaseMetadataTest extends NetCommonsTestSuite
 	public static function suite() {
 		$name = preg_replace('/^All([\w]+)Test$/', '$1', __CLASS__);
 		$suite = new NetCommonsTestSuite(sprintf('All %s tests', $name));
-		$suite->addTestDirectoryRecursive(__DIR__ . DS . 'CabinetFile');
+		$suite->addTestDirectoryRecursive(__DIR__ . DS . 'MultidatabaseMetadata');
 		return $suite;
 	}
 

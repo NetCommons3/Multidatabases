@@ -17,13 +17,6 @@
 class MultidatabaseMetadataFixture extends CakeTestFixture {
 
 /**
- * Table name
- *
- * @var string
- */
-	public $table = 'multidatabase_metadatas';
-
-/**
  * Records
  *
  * @var array
@@ -3437,8 +3430,8 @@ class MultidatabaseMetadataFixture extends CakeTestFixture {
  * @return void
  */
 	public function init() {
-		require_once App::pluginPath('Links') . 'Config' . DS . 'Schema' . DS . 'schema.php';
-		$this->fields = (new LinksSchema())->tables[Inflector::tableize($this->name)];
+		require_once App::pluginPath('Multidatabases') . 'Config' . DS . 'Schema' . DS . 'schema.php';
+		$this->fields = (new MultidatabasesSchema())->tables['multidatabase_metadatas'];
 		parent::init();
 	}
 }
