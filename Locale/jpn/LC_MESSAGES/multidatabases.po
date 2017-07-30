@@ -409,3 +409,6 @@ msgstr "ダウンロードパスワードを設定する"
 
 msgid "This metadata cannot delete because title field."
 msgstr "このメタデータはタイトルとして認識されるため削除できません。"
+
+msgid "MailSetting.mail_fixed_phrase_body.popover"
+msgstr "{X-SITE_NAME} : サイト名<br />{X-PLUGIN_NAME} : プラグイン名<br />{X-ROOM} : ルーム名<br />{X-BLOCK_NAME} : 汎用データベースタイトル<br />{X-SUBJECT} : コンテンツタイトル<br />{X-USER} : 投稿者<br />{X-TO_DATE} : 投稿日時<br /><br />{X-URL} : 投稿内容のURL"

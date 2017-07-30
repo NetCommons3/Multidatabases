@@ -84,7 +84,7 @@ class MultidatabaseContentExportsController extends MultidatabasesAppController 
  *
  * @return void
  */
-	public function export() {
+	public function edit() {
 		// CSVエクスポート
 		if (Hash::check($this->request->query, 'save')) {
 			return $this->__export($this->request->query['pass']);

@@ -1,0 +1,2 @@
+msgid "MailSetting.mail_fixed_phrase_body.popover"
+msgstr "{X-SITE_NAME} : Site Name<br />{X-PLUGIN_NAME} : Plugin name<br />{X-ROOM} : Room name<br />{X-BLOCK_NAME} : Database<br />{X-SUBJECT} : Subject<br />{X-USER} : Author<br />{X-TO_DATE} : Date<br /><br />{X-URL} : URL"

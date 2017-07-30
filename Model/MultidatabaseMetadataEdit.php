@@ -224,7 +224,7 @@ class MultidatabaseMetadataEdit extends MultidatabasesAppModel {
 			'rank' => 0,
 			'col_no' => 0,
 			'type' => 'text',
-			'selections' => '',
+			'selections' => [],
 			'is_require' => 0,
 			'is_title' => 0,
 			'is_searchable' => 0,

@@ -25,17 +25,7 @@ echo $this->NetCommonsHtml->css([
 ]);
 ?>
 
-<article class="multidatabaseContents">
-	<style>
-		.multidatabaseContents td, th {
-			padding: 5px;
-		}
-
-		.multidatabaseContents th {
-			text-align: center;
-			background-color: #F5F5F5;
-		}
-	</style>
+<article class="multidatabase-contents">
 	<header class="clearfix">
 		<div class="pull-left">
 			<?php echo $this->LinkButton->toList(); ?>

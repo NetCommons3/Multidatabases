@@ -21,15 +21,16 @@
 .multidatabase-content-list article footer,
 .multidatabase-content-detail article footer {
 	margin-top: 0 !important;
-	padding-bottom: 20px;
+	padding-bottom: 20px !important;
 }
 
 .multidatabase-content-list article:last-child footer {
 	padding-bottom:0;
 }
 
-.multidatabase-contents table td,th {
-	padding:5px;
+.multidatabase-contents table td,
+.multidatabase-contents table th {
+	padding:5px !important;
 }
 
 .multidatabase-contents table th {
