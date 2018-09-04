@@ -443,8 +443,8 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			}
 		}
 
-		$searchConds = $this->MultidatabaseContentSearch->getSearchConds($query);
-		$conditions = $this->__listBase($searchConds['conditions']);
+		list($searchConds, $order) = $this->MultidatabaseContentSearch->getSearchConds($query);
+		$conditions = $this->__listBase($searchConds);
 
 		// paginatorへ渡すための条件を取得する
 		$this->Paginator->settings = array_merge(
@@ -452,7 +452,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			[
 				'conditions' => $conditions,
 				'limit' => $this->_frameSetting['MultidatabaseFrameSetting']['content_per_page'],
-				'order' => $searchConds['order'],
+				'order' => $order,
 			]
 		);
 
@@ -501,7 +501,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
  * 汎用データべース コンテンツ一覧表示（ベース）
  *
  * @param array $extraConditions 追加条件
- * @return void
+ * @return array
  */
 	private function __listBase($extraConditions = []) {
 		$permission = $this->_getPermission();

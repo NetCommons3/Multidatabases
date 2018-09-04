@@ -61,7 +61,7 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
  * 検索結果を出力するための条件設定を行う
  *
  * @param array $query クエリ(GETより取得)
- * @return bool|array
+ * @return array 0:検索条件,1:ソート順
  */
 	public function getSearchConds($query = []) {
 		$this->loadModels([
@@ -69,7 +69,7 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
 		]);
 
 		if (empty($query)) {
-			return false;
+			return [[], null];
 		}
 
 		$conditions = [];
@@ -88,13 +88,7 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
 		// キーワード検索条件設定
 		$conditions += $this->MultidatabaseContentSearchCond->getCondKeywords($query);
 
-		// ソート順設定
-		$result = [
-			'conditions' => $conditions,
-			'order' => $this->getCondSortOrder()
-		];
-
-		return $result;
+		return [$conditions, $this->getCondSortOrder()];
 	}
 
 /**
