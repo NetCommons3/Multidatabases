@@ -505,6 +505,6 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 			}
 		}
 
-		return Hash::merge($this->validate, $result);
+		return array_merge($this->validate, $result);
 	}
 }

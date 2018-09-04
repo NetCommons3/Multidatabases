@@ -82,13 +82,12 @@ class MultidatabaseContentExportsController extends MultidatabasesAppController 
 /**
  * edit (Export)
  *
- * @return void
+ * @return CakeResponse
  */
 	public function edit() {
 		// CSVエクスポート
-		if (Hash::check($this->request->query, 'save')) {
+		if (isset($this->request->query['save'])) {
 			return $this->__export($this->request->query['pass']);
-		} else {
 		}
 	}
 
@@ -96,7 +95,7 @@ class MultidatabaseContentExportsController extends MultidatabasesAppController 
  * CSV Export
  *
  * @param string $pass ZIPパスワード
- * @return void
+ * @return CakeResponse
  */
 	private function __export($pass = '') {
 		$this->_prepare();

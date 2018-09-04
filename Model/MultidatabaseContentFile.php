@@ -103,7 +103,11 @@ class MultidatabaseContentFile extends MultidatabasesAppModel {
 	public function getFileURL() {
 		$contentKey = $this->request->params['pass'][0];
 		$options['field'] = $this->request->params['pass'][1];
-		$options['size'] = Hash::get($this->request->params['pass'], 2, 'medium');
+		$size = 'medium';
+		if (isset($this->request->params['pass'][2])) {
+			$size = $this->request->params['pass'][2];
+		}
+		$options['size'] = $size;
 		return $this->Download->doDownload($contentKey, $options);
 	}
 

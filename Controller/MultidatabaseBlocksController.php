@@ -187,10 +187,7 @@ class MultidatabaseBlocksController extends MultidatabasesAppController {
 		}
 
 		$this->request->data = $multidatabases;
-		$this->request->data = Hash::merge(
-			$this->request->data,
-			$this->MultidatabaseFrameSetting->getMultidatabaseFrameSetting(true)
-		);
+		$this->request->data += $this->MultidatabaseFrameSetting->getMultidatabaseFrameSetting(true);
 
 		$this->set('metadataDefault', $this->MultidatabaseMetadataEdit->getEmptyMetadata());
 		$this->set('metadatas', $multidatabases['MultidatabaseMetadata']);

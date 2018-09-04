@@ -512,7 +512,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 		);
 
 		if ($extraConditions) {
-			$conditions = Hash::merge($conditions, $extraConditions);
+			$conditions = array_merge($conditions, $extraConditions);
 		}
 
 		return $conditions;
@@ -531,7 +531,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 		$limitSelect = $this->__condSelect();
 
 		if (! empty($limitSelect)) {
-			$conditions = Hash::merge($conditions,
+			$conditions = array_merge($conditions,
 				['and' => $limitSelect]
 			);
 		}
