@@ -12,11 +12,11 @@
 
 if ($this->MultidatabaseContentEdit->chkHaveWysiwygItems($multidatabaseMetadata)) {
 	echo $this->NetCommonsHtml->script([
-		'/multidatabases/js/edit_multi_database_contents.js',
+		'/multidatabases/js/edit_multidatabase_contents.js',
 	]);
 } else {
 	echo $this->NetCommonsHtml->script([
-		'/multidatabases/js/edit_multi_database_contents_without_wysiwyg.js',
+		'/multidatabases/js/edit_multidatabase_contents_without_wysiwyg.js',
 	]);
 }
 

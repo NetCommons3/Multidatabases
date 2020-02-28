@@ -5,6 +5,7 @@
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Tomoyuki OHNO (Ricksoft Co., Ltd.) <ohno.tomoyuki@ricksoft.jp>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
@@ -18,6 +19,7 @@ App::uses('TemporaryFolder', 'Files.Utility');
  * MultidatabaseContentsController Controller
  *
  * @author Tomoyuki OHNO (Ricksoft Co., Ltd.) <ohno.tomoyuki@ricksoft.jp>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @package NetCommons\Multidatabases\Controller
  */
 class MultidatabaseContentsController extends MultidatabasesAppController {
@@ -134,7 +136,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 		$this->set('multidatabaseFrameSetting', $frameSetting['MultidatabaseFrameSetting']);
 
 		// ゲストアクセスOKのアクションを設定
-		$this->Auth->allow('index', 'detail', 'search');
+		$this->Auth->allow('index', 'detail', 'search', 'get_download_count');
 
 		$this->_prepare();
 	}
@@ -405,6 +407,28 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 	}
 
 /**
+ * File Download Count
+ * ファイルダウンロード数
+ *
+ * @return void
+ */
+public function get_download_count() {
+	$options = [
+		'fields' => [
+			'UploadFile.download_count',
+		],
+		'conditions' => [
+			'UploadFile.id' => 10,
+		]
+	];
+	$UploadFile = ClassRegistry::init('Files.UploadFile');
+	$file = $UploadFile->find('first', $options);
+
+	$this->set('_serialize', ['count']);
+	$this->set('count', $file);
+}
+
+/**
  * Search
  * 検索
  *
@@ -564,5 +588,3 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 		$this->set('viewMode', 'list');
 	}
 }
-
-

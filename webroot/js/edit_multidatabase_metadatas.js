@@ -1,9 +1,10 @@
 /**
  *  Multidatabases DatabaseMetadatas JS
  *  メタデータ編集関連フロントエンド処理
- *  webroot/js/edit_multi_database_metadatas.js
+ *  webroot/js/edit_multidatabase_metadatas.js
  *
  *  @author ohno.tomoyuki@ricksoft.jp (Tomoyuki OHNO/Ricksoft, Co., Ltd.)
+ *  @author exkazuu@willbooster.com (Kazunori Sakamoto)
  *  @link http://www.netcommons.org NetCommons Project
  *  @license http://www.netcommons.org/license.txt NetCommons License
  */

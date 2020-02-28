@@ -5,6 +5,7 @@
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Tomoyuki OHNO (Ricksoft Co., Ltd.) <ohno.tomoyuki@ricksoft.jp>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
@@ -17,6 +18,7 @@ App::uses('NetCommonsTime', 'NetCommons.Utility');
  * MultidatabaseContentViewElementHelper Helper
  *
  * @author Tomoyuki OHNO (Ricksoft, Co., LTD.) <ohno.tomoyuki@ricksoft.jp>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @package NetCommons\Multidatabase\View\Helper
  *
  */
@@ -29,6 +31,7 @@ class MultidatabaseContentViewElementHelper extends AppHelper {
  */
 	public $helpers = [
 		'NetCommons.Button',
+		'NetCommons.CDNCache',
 		'NetCommons.NetCommonsHtml',
 		'NetCommons.NetCommonsForm',
 		'Form',
@@ -167,8 +170,13 @@ class MultidatabaseContentViewElementHelper extends AppHelper {
 			$result = $this->__renderViewElementFileReqAuth($content, $colNo, $fileInfo);
 		}
 		if ((int)$showCounter === 1) {
-			$result .= '&nbsp;<span class="badge">';
-			$result .= $fileInfo['UploadFile']['download_count'];
+			$initialValue = $this->CDNCache->isCacheable() ? null : $fileInfo['UploadFile']['download_count'];
+			$result .= '&nbsp;<span class="badge" ng-controller="MultidatabaseFile.view" ng-cloak';
+			$result .= ' ng-init="init(' . h(json_encode(Current::read('Frame.id')));
+			$result .= ',' . h(json_encode($fileInfo['UploadFile']['id']));
+			$result .= ',' . h(json_encode($initialValue));
+			$result .= ');">';
+			$result .= '{{downloadCount}}';
 			$result .= '</span>';
 		}
 

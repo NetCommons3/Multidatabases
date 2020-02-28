@@ -12,7 +12,7 @@
 
 <?php
 echo $this->NetCommonsHtml->script([
-	'/multidatabases/js/edit_multi_database_metadatas.js',
+	'/multidatabases/js/edit_multidatabase_metadatas.js',
 ]);
 ?>
 
