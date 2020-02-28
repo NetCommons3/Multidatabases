@@ -168,7 +168,7 @@ class MultidatabaseContentViewElementHelper extends AppHelper {
 		}
 		if ((int)$showCounter === 1) {
 			$result .= '&nbsp;<span class="badge">';
-			$result .= $fileInfo['UploadFile']['download_count'];
+			$result .= $fileInfo['UploadFile']['total_download_count'];
 			$result .= '</span>';
 		}
 
