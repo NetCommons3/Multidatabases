@@ -415,10 +415,10 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 public function get_download_count() {
 	$options = [
 		'fields' => [
-			'UploadFile.download_count',
+			'UploadFile.total_download_count',
 		],
 		'conditions' => [
-			'UploadFile.id' => 10,
+			'UploadFile.id' => $this->request->query('upload_file_id'),
 		]
 	];
 	$UploadFile = ClassRegistry::init('Files.UploadFile');

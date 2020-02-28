@@ -20,7 +20,7 @@ NetCommonsApp.controller('MultidatabaseFile.view',
         $http.get(NC3_URL + '/multidatabases/multidatabase_contents/get_download_count.json' + params)
         .then(
           function(response) {
-            $scope.downloadCount = response.data.count.UploadFile.download_count;
+            $scope.downloadCount = response.data.count.UploadFile.total_download_count;
           },
           function() {
           });

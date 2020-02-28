@@ -170,7 +170,7 @@ class MultidatabaseContentViewElementHelper extends AppHelper {
 			$result = $this->__renderViewElementFileReqAuth($content, $colNo, $fileInfo);
 		}
 		if ((int)$showCounter === 1) {
-			$initialValue = $this->CDNCache->isCacheable() ? null : $fileInfo['UploadFile']['download_count'];
+			$initialValue = $this->CDNCache->isCacheable() ? null : $fileInfo['UploadFile']['total_download_count'];
 			$result .= '&nbsp;<span class="badge" ng-controller="MultidatabaseFile.view" ng-cloak';
 			$result .= ' ng-init="init(' . h(json_encode(Current::read('Frame.id')));
 			$result .= ',' . h(json_encode($fileInfo['UploadFile']['id']));
