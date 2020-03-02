@@ -325,6 +325,17 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 
 		$conditions = $this->getWorkflowConditions($conditions);
 
+		// bugfix: 汎用DBで多言語時、フレームで日英どちらも表示するにしても、日本語で登録した記事は日本語でしか見れないので対応
+		// https://github.com/NetCommons3/NetCommons3/issues/1557
+		// var_dump($conditions);
+		// array(3) { [0]=> array(1) { ["MultidatabaseContent.language_id"]=> string(1) "2" } [1]=> array(1) { ["OR"]=> array(2) { [0]=> array(0) { } [1]=> array(1) { ["MultidatabaseContent.is_latest"]=> bool(true) } } } ["MultidatabaseContent.block_Id"]=> string(3) "226" }
+		foreach ($conditions as $key => $condition) {
+			if (array_key_exists('MultidatabaseContent.language_id', $condition)) {
+				unset($conditions[$key]);
+				break;
+			}
+		}
+
 		return $conditions;
 	}
 
