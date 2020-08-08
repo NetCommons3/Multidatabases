@@ -412,22 +412,22 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
  *
  * @return void
  */
-public function get_download_count() {
-	$query = [
-		'fields' => [
-			'UploadFile.total_download_count',
-		],
-		'conditions' => [
-			'UploadFile.id' => $this->request->query('upload_file_id'),
-		],
-		'recursive' => -1
-	];
-	$UploadFile = ClassRegistry::init('Files.UploadFile');
-	$file = $UploadFile->find('first', $query);
+	public function get_download_count() {
+		$query = [
+			'fields' => [
+				'UploadFile.total_download_count',
+			],
+			'conditions' => [
+				'UploadFile.id' => $this->request->query('upload_file_id'),
+			],
+			'recursive' => -1
+		];
+		$UploadFile = ClassRegistry::init('Files.UploadFile');
+		$file = $UploadFile->find('first', $query);
 
-	$this->set('_serialize', ['count']);
-	$this->set('count', $file);
-}
+		$this->set('_serialize', ['count']);
+		$this->set('count', $file);
+	}
 
 /**
  * Search

@@ -17,12 +17,13 @@ NetCommonsApp.controller('MultidatabaseFile.view',
           return;
         }
         var params = '?frame_id=' + frameId + '&upload_file_id=' + uploadFileId;
-        $http.get(NC3_URL + '/multidatabases/multidatabase_contents/get_download_count.json' + params)
-        .then(
-          function(response) {
-            $scope.downloadCount = response.data.count.UploadFile.total_download_count;
-          },
-          function() {
-          });
+        $http.get(
+            NC3_URL + '/multidatabases/multidatabase_contents/get_download_count.json' + params
+        ).then(
+            function(response) {
+              $scope.downloadCount = response.data.count.UploadFile.total_download_count;
+            },
+            function() {
+            });
       };
-}]);
+    }]);
