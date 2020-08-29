@@ -296,6 +296,9 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			__d('multidatabases', 'Music'),
 			__d('multidatabases', 'Arts and crafts'),
 			__d('multidatabases', 'Sports'),
+			__d('multidatabases', 'Home economics'),
+			__d('multidatabases', 'Morals'),
+			__d('multidatabases', 'English'),
 		];
 		$metadataValues[3]['name'] = __d('multidatabases', 'Brief');
 		$metadataValues[4]['name'] = __d('multidatabases', 'Contact');
