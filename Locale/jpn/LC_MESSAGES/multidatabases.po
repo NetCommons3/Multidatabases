@@ -292,6 +292,15 @@ msgstr "図工"
 msgid "Sports"
 msgstr "体育"
 
+msgid "Home economics"
+msgstr "家庭科"
+
+msgid "Morals"
+msgstr "道徳"
+
+msgid "English"
+msgstr "英語"
+
 msgid "Brief"
 msgstr "概要"
 
