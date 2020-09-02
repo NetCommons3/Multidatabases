@@ -178,7 +178,7 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
 			$sortColDir = 'desc';
 		}
 
-		$sortOrder = 'MultidatabaseContent.' . $sortCol . ' ' . $sortColDir;
+		$sortOrder = ['MultidatabaseContent.' . $sortCol => $sortColDir];
 
 		return $sortOrder;
 	}
