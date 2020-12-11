@@ -45,28 +45,56 @@
 		       id="multidatabaseMetadataSettingEditName<?php echo $gPos; ?>-{{$index}}"
 		       name="data[MultidatabaseMetadata][<?php echo $gPos; ?>][{{$index}}][name]"
 		       ng-model="metadataGroup<?php echo $gPos; ?>[$index]['name']">
-		<div class="has-error" ng-if="<?php echo "g${gPos}.has_err == 1"; ?>">
-			<div class="help-block">{{ <?php echo "g${gPos}.err_msg"; ?> }}</div>
+		<?php // 項目名のエラーメッセージを表示 ?>
+		<div class="has-error" ng-if="<?php echo "g${gPos}.has_err.name == 1"; ?>">
+			<div class="help-block">{{ <?php echo "g${gPos}.err_msg.name"; ?> }}</div>
 		</div>
 	</div>
 </div>
 <?php // 属性 ?>
 <div class="row form-group" ng-if="<?php echo "g${gPos}.is_title != 1"; ?>">
+<?php
+	// DBに登録済みのメタデータかどうかを判定するAngular式
+	// 最初に画面を開いた時、新規メタデータの「id」は空だが、
+	// バリデーションエラーが発生した場合、新規メタデータの「id」は「0」が入る
+	$isRegisteredMetadataExpr = "(metadataGroup${gPos}[" . '$index' . "]['id'] !== ''" .
+		" && " .
+		"metadataGroup${gPos}[" . '$index' . "]['id'] !== 0)";
+?>
 	<div class="col-xs-12">
 		<label>
 			<?php echo __d('multidatabases', 'Field type'); ?>
 			<strong class="text-danger h4">*</strong>
 		</label>
+		<span>
+			<?php
+				echo __d('multidatabases', 'Once a metadata attribute has been decided, it cannot be changed.');
+			?>
+		</span>
 		<select name="data[MultidatabaseMetadata][<?php echo $gPos; ?>][{{$index}}][type]"
 		        id="multidatabaseMetadataSettingEditType<?php echo $gPos; ?>-{{$index}}"
 		        class="form-control"
-		        ng-model="metadataGroup<?php echo $gPos; ?>[$index]['type']">
+		        ng-model="metadataGroup<?php echo $gPos; ?>[$index]['type']"
+				<?php // 既に登録されている属性に対して操作不可にする（値は受け取りたいので、POSTした時にdisabledを解除する） ?>
+		        ng-disabled="<?php echo $isRegisteredMetadataExpr ?> && !sending">
 			<?php foreach ($this->MultidatabaseMetadataSetting->fieldTypeList() as $key => $fieldName): ?>
 				<option value="<?php echo $key; ?>">
 					<?php echo $fieldName; ?>
 				</option>
 			<?php endforeach; ?>
 		</select>
+		<?php // 属性のエラーメッセージを表示 ?>
+		<div class="has-error" ng-if="<?php echo "g${gPos}.has_err.type == 1"; ?>">
+			<div class="help-block">{{ <?php echo "g${gPos}.err_msg.type"; ?> }}</div>
+		</div>
+	</div>
+</div>
+<?php // メタデータ編集時以下のメッセージを表示する ?>
+<div ng-if="<?php echo "g${gPos}.is_title != 1 && ${isRegisteredMetadataExpr}" ?>">
+	<div class="well well-sm">
+		<?php
+			echo __d('multidatabases', 'This metadata is already registered because cannot be edited.');
+		?>
 	</div>
 </div>
 <?php // 選択肢 ?>
@@ -203,4 +231,3 @@
 		</div>
 	</div>
 </div>
-
