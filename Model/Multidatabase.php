@@ -311,9 +311,10 @@ class Multidatabase extends MultidatabasesAppModel {
  * 汎用DB設定のバリデーションを行う
  *
  * @param array $data データ配列
+ * @param array $dbData DB上のメタデータ
  * @return bool|array
  */
-	public function doValidate($data) {
+	public function doValidate($data, $dbData = null) {
 		$this->set($data);
 
 		$result['errors']['Multidatabase'] = [];
@@ -324,7 +325,9 @@ class Multidatabase extends MultidatabasesAppModel {
 			$result['hasError'] = true;
 		} else {
 			$metadataGroups = $data['MultidatabaseMetadata'];
-			$metadatasResult = $this->MultidatabaseMetadata->doValidateMetadatas($metadataGroups);
+			$metadatasResult = $this->MultidatabaseMetadata->doValidateMetadatas(
+				$metadataGroups, $dbData['MultidatabaseMetadata']
+			);
 			$result['data']['MultidatabaseMetadata'] = $metadatasResult['data'];
 			$result['errors']['MultidatabaseMetadata'] = $metadatasResult['errors'];
 
