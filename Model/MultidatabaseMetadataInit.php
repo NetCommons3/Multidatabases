@@ -29,6 +29,10 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 
 /**
  * Init Metadata Values
+ * 初期データで「col_no」が固定されていたため、属性を「テキスト」 => 「WYSIWYGテキスト」などに変更すると、
+ * 正しい「col_no」に変更されない。（hidden要素で固定されているから）
+ * 対応として、初期データでは「col_no」は持たずに、Modelのsave処理で採番する方法に統一する。
+ *
  * @var array
  */
 	private $__initMetadataValues = [
@@ -38,7 +42,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 0,
 			'rank' => 0,
-			'col_no' => 1,
 			'type' => 'text',
 			'selections' => '',
 			'is_require' => 1,
@@ -57,7 +60,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 0,
 			'rank' => 1,
-			'col_no' => 2,
 			'type' => 'text',
 			'selections' => '',
 			'is_require' => 0,
@@ -76,7 +78,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 0,
 			'rank' => 2,
-			'col_no' => 3,
 			'type' => 'select',
 			'is_require' => 1,
 			'is_title' => 0,
@@ -94,7 +95,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 0,
 			'rank' => 3,
-			'col_no' => 80,
 			'type' => 'wysiwyg',
 			'selections' => '',
 			'is_require' => 1,
@@ -113,7 +113,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 1,
 			'rank' => 0,
-			'col_no' => 81,
 			'type' => 'textarea',
 			'selections' => '',
 			'is_require' => 0,
@@ -132,7 +131,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 1,
 			'rank' => 1,
-			'col_no' => 4,
 			'type' => 'text',
 			'selections' => '',
 			'is_require' => 0,
@@ -151,7 +149,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 1,
 			'rank' => 2,
-			'col_no' => 5,
 			'type' => 'text',
 			'selections' => '',
 			'is_require' => 0,
@@ -170,7 +167,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 1,
 			'rank' => 3,
-			'col_no' => 6,
 			'type' => 'select',
 			'is_require' => 0,
 			'is_title' => 0,
@@ -188,7 +184,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 1,
 			'rank' => 4,
-			'col_no' => 7,
 			'type' => 'file',
 			'selections' => 0,
 			'is_require' => 0,
@@ -207,7 +202,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 2,
 			'rank' => 0,
-			'col_no' => 82,
 			'type' => 'textarea',
 			'selections' => '',
 			'is_require' => 0,
@@ -226,7 +220,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 2,
 			'rank' => 1,
-			'col_no' => 8,
 			'type' => 'text',
 			'selections' => '',
 			'is_require' => 0,
@@ -245,7 +238,6 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 			'key' => '',
 			'position' => 3,
 			'rank' => 0,
-			'col_no' => 9,
 			'type' => 'image',
 			'selections' => '',
 			'is_require' => 0,
@@ -318,4 +310,3 @@ class MultidatabaseMetadataInit extends MultidatabasesAppModel {
 		return $metadataValues;
 	}
 }
-
