@@ -77,6 +77,14 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
 	];
 
 /**
+ * メタデータの属性改ざんチェックに用いる
+ * DBに登録されているメタデータ毎の情報が入る
+ *
+ * @var array
+ */
+	public $dbMetaData = null;
+
+/**
  * Constructor. Binds the model's database table to the object.
  *
  * @param bool|int|string|array $id Set this ID for this model on startup,
@@ -310,8 +318,15 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
 			);
 		}
 
+		// doValidateMetadatas関数でメタデータの数分、バリデーションを実行していて、
+		// 動的にバリデーションルールを変更していたが、
+		// saveAllで実行されるバリデーションの時は、doValidateMetadatas関数を経由していないため、
+		// 動的にバリデーションルールが変更できない。
+
+		// 上記の理由で、正しいデータが入力されていてもバリデーションエラーが発生してしまうため、
+		// ここではバリデーションを実行しない。（saveAll前に一度バリデーションを実施しているため）
 		// 保存
-		if (! $this->saveAll($metadatas)) {
+		if (! $this->saveAll($metadatas, ['validate' => false])) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 	}
@@ -341,9 +356,10 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
  * メタデータのバリデーションを行う
  *
  * @param array $metadataGroups メタデータグループ配列
+ * @param array $dbData DB上のメタデータ
  * @return bool|array
  */
-	public function doValidateMetadatas($metadataGroups) {
+	public function doValidateMetadatas($metadataGroups, $dbData = null) {
 		$metadatas = $this->mergeGroupToMetadatas($metadataGroups);
 
 		$result['has_err'] = false;
@@ -351,21 +367,44 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
 		$result['data'] = $metadatas['MultidatabaseMetadata'];
 
 		foreach ($metadatas['MultidatabaseMetadata'] as $key => $metadata) {
+			$this->dbMetaData = [];
+			// メタデータの属性改ざんチェックに使用するため、
+			// バリデーション対象のメタデータ（入力値）とDBに登録された同一のメタデータの属性を取得する
+			if (!empty($dbData)) {
+				foreach ($dbData as $dbKey => $dbItem) {
+					if ($dbItem['id'] == $metadata['id']) {
+						$this->dbMetaData = $dbItem;
+						// 処理軽減のため、unset
+						unset($dbData[$dbKey]);
+						break;
+					}
+				}
+			}
 			$this->set($metadata);
 
 			$result['data'][$key] = $this->MultidatabaseMetadataEditCnv
 				->normalizeEditMetadatasType($metadata);
-
-			$result['data'][$key]['has_err'] = 0;
-			$result['data'][$key]['err_msg'] = '';
 			$result['errors'][$key] = '';
 
 			if (! $this->validates()) {
 				$result['has_err'] = true;
 				$result['errors'][$key] = $this->ValidationErrors;
-				$result['data'][$key]['has_err'] = 1;
-				if (! empty($this->validationErrors['name'][0])) {
-					$result['data'][$key]['err_msg'] = $this->validationErrors['name'][0];
+				// バリデーションエラーは全てここで取得する
+				// エラーフラグとエラーメッセージは、メタデータのフィールド毎に管理する
+				foreach ($this->validationErrors as $field => $errors) {
+					$result['data'][$key]['err_msg'][$field] = '';
+					// このフィールドでエラーが発生した
+					$result['data'][$key]['has_err'][$field] = 1;
+
+					// エラーメッセージの結合
+					foreach ($errors as $index => $errorMsg) {
+						// バリデーションエラーが複数発生することを想定して、foreachでエラーメッセージを連結する
+						// 最後のループ以外、改行コードは付けておく
+						$result['data'][$key]['err_msg'][$field] .=
+							(count($errors) - 1) === $index
+							? $errorMsg
+							: $errorMsg . "\n";
+					}
 				}
 			}
 		}
@@ -441,7 +480,24 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
 				],
 			],
 		];
+		// DBに登録されていて、かつ削除されていないメタデータがあれば、改ざんチェックを行う
+		if (!empty($this->dbMetaData)) {
+			$result['type'] = [
+				'doNotChange' => [
+					'rule' => ['equalTo', $this->dbMetaData['type']], // DB上のメタデータの属性情報が入る
+					'message' => sprintf(
+						__d('multidatabases', 'This item cannot be edited.')
+					),
+					'on' => 'update'
+				]
+			];
+		}
+		// ValidateMerge::mergeで、既存のバリデーションルールと
+		// ここで定義したバリデーションルールをマージするが、
+		// 改ざんチェック用のバリデーションルールの比較対象（$this->dbMetaData['type']）が
+		// バリデーションを実行するたびに増加する不具合があったため、
+		// 予め、バリデーションルールを削除しておく
+		unset($this->validate['type']['doNotChange']['rule']);
 		return ValidateMerge::merge($this->validate, $result);
 	}
 }
-

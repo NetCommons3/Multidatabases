@@ -383,5 +383,14 @@ msgstr "ダウンロードパスワードを設定する"
 msgid "This metadata cannot delete because title field."
 msgstr "このメタデータはタイトルとして認識されるため削除できません。"
 
+msgid "This metadata is already registered because cannot be edited."
+msgstr "このメタデータは既に登録されているため、属性の編集はできません。"
+
+msgid "This item cannot be edited."
+msgstr "この項目は編集できません。"
+
+msgid "Once a metadata attribute has been decided, it cannot be changed."
+msgstr "一度決定したメタデータの属性は変えることができません。"
+
 msgid "MailSetting.mail_fixed_phrase_body.popover"
 msgstr "{X-SITE_NAME} : サイト名<br />{X-PLUGIN_NAME} : プラグイン名<br />{X-ROOM} : ルーム名<br />{X-BLOCK_NAME} : 汎用データベースタイトル<br />{X-SUBJECT} : コンテンツタイトル<br />{X-USER} : 投稿者<br />{X-TO_DATE} : 投稿日時<br />{X-DATA} : 投稿内容<br /><br />{X-URL} : 投稿内容のURL"

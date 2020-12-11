@@ -79,6 +79,15 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 	public $actsAs = [
 		'NetCommons.Trackable',
 		'NetCommons.OriginalKey',
+		'Wysiwyg.Wysiwyg' => [
+			'fields' => [
+				'value80', 'value81', 'value82', 'value83', 'value84',
+				'value85', 'value86', 'value87', 'value88', 'value89',
+				'value90', 'value91', 'value92', 'value93', 'value94',
+				'value95', 'value96', 'value97', 'value98', 'value99',
+				'value100',
+			]
+		],
 		'Workflow.Workflow',
 		'Likes.Like',
 		'Workflow.WorkflowComment',
@@ -270,6 +279,7 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 		if (! $this->validates(['deleteFiles' => $deleteFiles])) {
 			return false;
 		}
+		$data = $this->data;
 
 		$result = $this->MultidatabaseContentEdit->makeSaveData($data, $metadatas, $isUpdate);
 

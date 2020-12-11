@@ -158,9 +158,15 @@ class MultidatabaseBlocksController extends MultidatabasesAppController {
  * @return void
  */
 	public function edit() {
+		//画面表示とPOSTされた時のバリデーション用にDBの値を利用したいので、
+		//両方で値を取得する
+		$multidatabases = $this->Multidatabase->getMultidatabase();
+		$multidatabases['MultidatabaseMetadata'] = $this->MultidatabaseMetadata->getEditMetadatas(
+			$multidatabases['Multidatabase']['id']
+		);
 		if ($this->request->is('put') || $this->request->is('post')) {
 			// バリデーション
-			$result = $this->Multidatabase->doValidate($this->data);
+			$result = $this->Multidatabase->doValidate($this->data, $multidatabases);
 
 			if (! $result['has_err']) {
 				$this->Multidatabase->saveMultidatabase($this->data);
@@ -170,15 +176,15 @@ class MultidatabaseBlocksController extends MultidatabasesAppController {
 			$this->NetCommons->handleValidationError($result['errors']);
 			$multidatabases = $result['data'];
 		} else {
-			$multidatabases = $this->Multidatabase->getMultidatabase();
+			//$multidatabases = $this->Multidatabase->getMultidatabase();
 
 			if (!$multidatabases) {
 				return $this->throwBadRequest();
 			}
 
-			$multidatabases['MultidatabaseMetadata'] = $this->MultidatabaseMetadata->getEditMetadatas(
-				$multidatabases['Multidatabase']['id']
-			);
+			// $multidatabases['MultidatabaseMetadata'] = $this->MultidatabaseMetadata->getEditMetadatas(
+			// 	$multidatabases['Multidatabase']['id']
+			// );
 
 			if (!$multidatabases['MultidatabaseMetadata']) {
 				return $this->throwBadRequest($multidatabases['MultidatabaseMetadata']);
