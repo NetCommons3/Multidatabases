@@ -24,6 +24,7 @@ App::uses('TemporaryFolder', 'Files.Utility');
  * @author Tomoyuki OHNO (Ricksoft, Co., Ltd.) <ohno.tomoyuki@ricksoft.jp>
  * @package NetCommons\Multidatabases\Model
  *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class MultidatabaseContent extends MultidatabasesAppModel {
 
@@ -122,16 +123,15 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 		// DBからメタデータ設定を読みだして、動的に監視フィールドを指定する
 		$metadatas = $this->MultidatabaseMetadata->getMetadatas();
 		if ($metadatas) {
-    			$wysiwyg = [];
-    			$wysiwyg['fields'] = [];
-    			foreach ($metadatas as $meta) {
-        			if ($meta['MultidatabaseMetadata']['type'] == 'wysiwyg') {
-            				$wysiwyg['fields'][] = 'value' . $meta['MultidatabaseMetadata']['col_no'];
-        			}
-    			}
-    			$this->Behaviors->load('Wysiwyg.Wysiwyg', $wysiwyg);
+			$wysiwyg = [];
+			$wysiwyg['fields'] = [];
+			foreach ($metadatas as $meta) {
+				if ($meta['MultidatabaseMetadata']['type'] == 'wysiwyg') {
+					$wysiwyg['fields'][] = 'value' . $meta['MultidatabaseMetadata']['col_no'];
+				}
+			}
+			$this->Behaviors->load('Wysiwyg.Wysiwyg', $wysiwyg);
 		}
-
 	}
 
 /**
