@@ -22,6 +22,7 @@ App::uses('CakeSession', 'Model/Datasourse');
  *
  * @author Tomoyuki OHNO (Ricksoft, Co., Ltd.) <ohno.tomoyuki@ricksoft.jp>
  * @package NetCommons\Multidatabases\Model
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class MultidatabaseMetadata extends MultidatabasesAppModel {
 
@@ -484,7 +485,8 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
 		if (!empty($this->dbMetaData)) {
 			$result['type'] = [
 				'doNotChange' => [
-					'rule' => ['equalTo', $this->dbMetaData['type']], // DB上のメタデータの属性情報が入る
+					// DB上のメタデータの属性情報が入る
+					'rule' => ['equalTo', $this->dbMetaData['type']],
 					'message' => sprintf(
 						__d('multidatabases', 'This item cannot be edited.')
 					),

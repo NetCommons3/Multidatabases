@@ -387,7 +387,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 		}
 
 		$contentId = $content['MultidatabaseContent']['id'];
-		$colNo = (int)$this->request->query['col_no'];
+		$colNo = (int)($this->request->query['col_no'] ?? '0');
 		$field = 'value' . $colNo;
 		$fieldAttach = $field . '_attach';
 

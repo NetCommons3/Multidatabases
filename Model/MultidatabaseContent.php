@@ -24,6 +24,7 @@ App::uses('TemporaryFolder', 'Files.Utility');
  * @author Tomoyuki OHNO (Ricksoft, Co., Ltd.) <ohno.tomoyuki@ricksoft.jp>
  * @package NetCommons\Multidatabases\Model
  *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class MultidatabaseContent extends MultidatabasesAppModel {
 
@@ -79,15 +80,6 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 	public $actsAs = [
 		'NetCommons.Trackable',
 		'NetCommons.OriginalKey',
-		'Wysiwyg.Wysiwyg' => [
-			'fields' => [
-				'value80', 'value81', 'value82', 'value83', 'value84',
-				'value85', 'value86', 'value87', 'value88', 'value89',
-				'value90', 'value91', 'value92', 'value93', 'value94',
-				'value95', 'value96', 'value97', 'value98', 'value99',
-				'value100',
-			]
-		],
 		'Workflow.Workflow',
 		'Likes.Like',
 		'Workflow.WorkflowComment',
@@ -125,6 +117,21 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 			'MultidatabaseContentSearch' => 'Multidatabases.MultidatabaseContentSearch',
 			'MultidatabaseContentFile' => 'Multidatabases.MultidatabaseContentFile',
 		]);
+		// 汎用DBは過去の不具合のため、value2～value100のどこにwysiwygメタデータが
+		// 設定されているかわからない
+		// wysiwygのカラムをBehaviorに監視させるために
+		// DBからメタデータ設定を読みだして、動的に監視フィールドを指定する
+		$metadatas = $this->MultidatabaseMetadata->getMetadatas();
+		if ($metadatas) {
+			$wysiwyg = [];
+			$wysiwyg['fields'] = [];
+			foreach ($metadatas as $meta) {
+				if ($meta['MultidatabaseMetadata']['type'] == 'wysiwyg') {
+					$wysiwyg['fields'][] = 'value' . $meta['MultidatabaseMetadata']['col_no'];
+				}
+			}
+			$this->Behaviors->load('Wysiwyg.Wysiwyg', $wysiwyg);
+		}
 	}
 
 /**
