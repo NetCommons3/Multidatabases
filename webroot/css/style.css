@@ -18,19 +18,26 @@
 
 }
 
-.multidatabase-content-list article footer,
-.multidatabase-content-detail article footer {
-	margin-top: 0 !important;
-	padding-bottom: 20px !important;
+.multidatabase-content-list table.table.table-bordered th,
+.multidatabase-content-detail table.table.table-bordered th {
+	width: 20%;
+	word-break: break-all;
+	text-align: left;
+	line-height: 1.3;
+	vertical-align: middle;
+	font-size: smaller;
+}
+
+.frame.nc-content .multidatabase-content-list article footer,
+.frame.nc-content .multidatabase-content-detail article footer,
+.frame.nc-content-list .multidatabase-content-list article footer,
+.frame.nc-content-list .multidatabase-content-detail article footer {
+	margin-top: -10px;
+	margin-bottom: 35px;
 }
 
 .multidatabase-content-list article:last-child footer {
 	padding-bottom:0;
-}
-
-.multidatabase-contents table td,
-.multidatabase-contents table th {
-	padding:5px !important;
 }
 
 .multidatabase-contents table th {
