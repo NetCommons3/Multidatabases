@@ -28,6 +28,11 @@
 	font-size: smaller;
 }
 
+.multidatabase-content-list table.table.table-bordered td,
+.multidatabase-content-detail table.table.table-bordered td {
+	word-break: break-all;
+}
+
 .frame.nc-content .multidatabase-content-list article footer,
 .frame.nc-content .multidatabase-content-detail article footer,
 .frame.nc-content-list .multidatabase-content-list article footer,
