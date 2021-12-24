@@ -75,7 +75,6 @@ echo $this->NetCommonsHtml->css([
 						)
 					);?>
 
-					</span>
 					<?php echo $this->NetCommonsForm->end() ?>
 				</div>
 			<?php endif ?>
