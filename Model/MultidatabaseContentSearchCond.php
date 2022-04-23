@@ -88,12 +88,12 @@ class MultidatabaseContentSearchCond extends MultidatabasesAppModel {
 		if (!empty($query['status']['value'])) {
 			switch ($query['status']['value']) {
 				case 'pub':
-					$conditions['status'] = 1;
+					$conditions['MultidatabaseContent.status'] = 1;
 					break;
 				case 'unpub':
 					$conditions['or'] = [
-						['status' => 2],
-						['status' => 3]
+						['MultidatabaseContent.status' => 2],
+						['MultidatabaseContent.status' => 3]
 					];
 					break;
 			}
