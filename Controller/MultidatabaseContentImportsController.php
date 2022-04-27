@@ -45,7 +45,7 @@ class MultidatabaseContentImportsController extends MultidatabasesAppController 
 		'NetCommons.Permission' => [
 			//アクセスの権限
 			'allow' => [
-				'edit' => 'block_permission_editable',
+				'edit,download_import_format' => 'block_permission_editable',
 			],
 		],
 		'Files.Download',
