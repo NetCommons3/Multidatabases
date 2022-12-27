@@ -267,7 +267,7 @@ class Multidatabase extends MultidatabasesAppModel {
 			}
 
 			$conditions = [
-				$this->MultidatabaseMetadata->alias . '.multidatabase_id' => $data['Multidatabase']['id']
+				$this->MultidatabaseMetadata->alias . '.multidatabase_id' => $multidatabaseIds
 			];
 			if (!$this->MultidatabaseMetadata->deleteAll($conditions, false, false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
