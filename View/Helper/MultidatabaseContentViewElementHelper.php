@@ -161,7 +161,7 @@ class MultidatabaseContentViewElementHelper extends AppHelper {
 			$result .= '<a href="' . $fileUrl . '" target="_blank">';
 			// 表示が全てダウンロードとなる。ファイル名を表示する
 			//$result .= __d('multidatabases', 'Download');
-			$result .= $fileInfo['UploadFile']['original_name'];
+			$result .= h($fileInfo['UploadFile']['original_name']);
 			$result .= '</a>';
 		} else {
 			$result = $this->__renderViewElementFileReqAuth($content, $colNo, $fileInfo);
