@@ -57,20 +57,28 @@ class MultidatabaseContentSearchCond extends MultidatabasesAppModel {
  */
 	public function getCondStartEndDt($query) {
 		$conditions = [];
+
+		//サーバタイムゾーンの日時に変換
+		$date = new DateTime($query['start_dt']['value']);
+		$createdStart = (new NetCommonsTime())->toServerDatetime($date->format('Y-m-d H:i:s'));
+		$date = new DateTime($query['end_dt']['value']);
+		$date->modify('+59 second');
+		$createdEnd = (new NetCommonsTime())->toServerDatetime($date->format('Y-m-d H:i:s'));
+
 		if (
 			!empty($query['start_dt']['value']) &&
 			!empty($query['end_dt']['value'])
 		) {
 			$conditions['MultidatabaseContent.created between ? and ?'] = [
-				$query['start_dt']['value'],
-				$query['end_dt']['value']
+				$createdStart,
+				$createdEnd
 			];
 		} else {
 			if (!empty($query['start_dt']['value'])) {
-				$conditions['MultidatabaseContent.created <='] = $query['start_dt']['value'];
+				$conditions['MultidatabaseContent.created >='] = $createdStart;
 			}
 			if (!empty($query['end_dt']['value'])) {
-				$conditions['MultidatabaseContent.created >='] = $query['end_dt']['value'];
+				$conditions['MultidatabaseContent.created <='] = $createdEnd;
 			}
 		}
 
