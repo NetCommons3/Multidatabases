@@ -133,7 +133,7 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
 							);
 						break;
 					case 'checkbox':
-						$result += $this->MultidatabaseContentSearchCond->getCondSelCheck(
+						$result[] = $this->MultidatabaseContentSearchCond->getCondSelCheck(
 								$metadata['selections'], $values, $valueKey
 							);
 						break;

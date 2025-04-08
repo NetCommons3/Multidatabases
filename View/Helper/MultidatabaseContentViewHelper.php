@@ -215,6 +215,7 @@ class MultidatabaseContentViewHelper extends AppHelper {
 	public function dropDownToggleSelect($metadatas, $viewType = 'index') {
 		$params = $this->_View->Paginator->params;
 		$named = $params['named'];
+		$named['page'] = 1;
 		$url = $named;
 		$result = '';
 

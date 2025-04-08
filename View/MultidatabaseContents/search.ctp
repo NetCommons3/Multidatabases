@@ -48,15 +48,6 @@ echo $this->NetCommonsHtml->css([
 						echo $this->NetCommonsForm->input('type', $options);
 					?>
 				</div>
-				<?php // 作成者（ハンドル） ?>
-				<div>
-					<?php
-						$options = [
-							'label' => __d('multidatabases', 'Create user')
-						];
-						echo $this->NetCommonsForm->input('create_user', $options);
-					?>
-				</div>
 				<?php // 作成日時 ?>
 				<div>
 					<div class="form-group">
