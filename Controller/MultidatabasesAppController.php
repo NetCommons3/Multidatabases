@@ -72,23 +72,8 @@ class MultidatabasesAppController extends AppController {
  * @return void
  */
 	protected function _prepare() {
-		$this->_setupMultidatabaseTitle();
 		$this->_initMultidatabase(['multidatabaseSetting']);
 		$this->_loadFrameSetting();
-	}
-
-/**
- * ブロック名を汎用DBタイトルとしてセットする
- *
- * @return void
- */
-	protected function _setupMultidatabaseTitle() {
-		$this->loadModel('Blocks.Block');
-		$block = $this->Block->find('first', [
-			'recursive' => 0,
-			'conditions' => ['Block.id' => Current::read('Block.id')],
-		]);
-		$this->_multidatabaseTitle = $block['BlocksLanguage']['name'];
 	}
 
 /**
@@ -103,24 +88,23 @@ class MultidatabasesAppController extends AppController {
 		}
 
 		// メタデータを取得
-		if (!$metadata = $this->MultidatabaseMetadata->getEditMetadatas(
+		if (!$metadatas = $this->MultidatabaseMetadata->getEditMetadatas(
 			$multidatabase['Multidatabase']['id'])
 		) {
 			return $this->throwBadRequest();
 		}
 
-		if (!$metadataGroups = $this->MultidatabaseMetadata->getMetadataGroups(
-			$multidatabase['Multidatabase']['id'])
-		) {
-			return $this->throwBadRequest();
+		foreach ($metadatas as $metadata) {
+			$metadataGroups[$metadata['position']][$metadata['rank']] = $metadata;
 		}
 
 		$this->_multidatabaseTitle = $multidatabase['Multidatabase']['name'];
 		$this->set('multidatabase', $multidatabase);
-		$this->set('multidatabaseMetadata', $metadata);
+		$this->set('multidatabaseMetadata', $metadatas);
 		$this->set('multidatabaseMetadataGroups', $metadataGroups);
 
-		if (!$multidatabaseSetting = $this->MultidatabaseSetting->getMultidatabaseSetting()) {
+		$multidatabaseSetting['MultidatabaseSetting'] = $multidatabase['MultidatabaseSetting'];
+		if (!$multidatabaseSetting) {
 			$multidatabaseSetting = $this->MultidatabaseSetting->createBlockSetting();
 			$multidatabaseSetting['MultidatabaseSetting']['multidatabase_key'] = null;
 		} else {
@@ -129,7 +113,7 @@ class MultidatabasesAppController extends AppController {
 		}
 
 		$this->_multidatabase = $multidatabase;
-		$this->_metadata = $metadata;
+		$this->_metadata = $metadatas;
 		$this->_setting = $multidatabaseSetting;
 		$this->set('multidatabaseSetting', $multidatabaseSetting['MultidatabaseSetting']);
 		$this->set('userId', (int)$this->Auth->user('id'));

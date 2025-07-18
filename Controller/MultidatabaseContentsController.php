@@ -130,13 +130,11 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			return false;
 		}
 
-		$frameSetting = $this->MultidatabaseFrameSetting->getMultidatabaseFrameSetting(true);
-		$this->set('multidatabaseFrameSetting', $frameSetting['MultidatabaseFrameSetting']);
-
 		// ゲストアクセスOKのアクションを設定
 		$this->Auth->allow('index', 'detail', 'search');
 
 		$this->_prepare();
+		$this->set('multidatabaseFrameSetting', $this->_frameSetting['MultidatabaseFrameSetting']);
 	}
 
 /**
@@ -503,7 +501,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
  */
 	private function __condSelect() {
 		$pagerNamed = $this->Paginator->Controller->params->named;
-		return $this->MultidatabaseContentSearch->getCondSelect($pagerNamed);
+		return $this->MultidatabaseContentSearch->getCondSelect($pagerNamed, $this->_metadata);
 	}
 
 /**

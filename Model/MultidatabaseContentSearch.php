@@ -101,9 +101,10 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
  * 複数選択、単一選択の絞込条件出力
  *
  * @param array $values 値
+ * @param array $metadatas メタデータ
  * @return array
  */
-	public function getCondSelect($values = []) {
+	public function getCondSelect($values = [], $metadatas = []) {
 		$this->loadModels([
 			'MultidatabaseMetadata' => 'Multidatabases.MultidatabaseMetadata',
 			'MultidatabaseContentSearchCond' => 'Multidatabases.MultidatabaseContentSearchCond',
@@ -113,7 +114,9 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
 			return [];
 		}
 
-		$metadatas = $this->MultidatabaseMetadata->getEditMetadatas();
+		if (empty($metadatas)) {
+			$metadatas = $this->MultidatabaseMetadata->getEditMetadatas();
+		}
 		$result = [];
 
 		$valueKey = null;
