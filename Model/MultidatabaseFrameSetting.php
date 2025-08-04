@@ -80,6 +80,7 @@ class MultidatabaseFrameSetting extends MultidatabasesAppModel {
 		$frameSetting = $this->find('first', [
 				'recursive' => -1,
 				'conditions' => $conditions,
+				'callbacks' => false,
 			]
 		);
 

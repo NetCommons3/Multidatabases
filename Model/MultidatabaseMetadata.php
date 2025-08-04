@@ -226,6 +226,7 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
 				'recursive' => 0,
 				'fields' => 'Multidatabase.id',
 				'conditions' => $this->Multidatabase->getBlockConditionById(),
+				'callbacks' => false,
 			]);
 
 			if (!$multidatabase) {
