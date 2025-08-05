@@ -564,8 +564,8 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			'MultidatabaseContent.modified',
 		];
 
-		foreach($this->_metadata as $metadata) {
-			if($metadata['is_visible_list']) {
+		foreach ($this->_metadata as $metadata) {
+			if ($metadata['is_visible_list']) {
 				$field[] = 'MultidatabaseContent.' . 'value' . $metadata['col_no'];
 			}
 		}
