@@ -242,6 +242,38 @@ class MultidatabaseContentFile extends MultidatabasesAppModel {
 	}
 
 /**
+ * Remove File(s)
+ * ファイルを削除する（コンテンツKeyより）
+ *
+ * @param string $contentKey コンテンツKey
+ * @return bool
+ */
+	public function removeFilesByContentKey($contentKey) {
+		$UploadFile = ClassRegistry::init('Files.UploadFile');
+		$pluginKey = 'multidatabases';
+
+		$options = [
+			'recursive' => -1,
+			'fields' => [
+				'UploadFile.id',
+			],
+			'conditions' => [
+				'UploadFile.plugin_key' => $pluginKey,
+				'UploadFile.content_key' => $contentKey,
+			],
+			'callbacks' => false,
+		];
+
+		$files = $UploadFile->find('all', $options);
+
+		foreach ($files as $file) {
+			$UploadFile->deleteUploadFile($file['UploadFile']['id']);
+		}
+
+		return true;
+	}
+
+/**
  * RemoveFile(s) Base
  * ファイルを削除する
  *

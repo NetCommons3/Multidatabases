@@ -288,6 +288,14 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 		}
 		$data = $this->data;
 
+		// $this->dataには、クレンジングされたデータが保持されており、添付ファイルの削除フラグが消されてしまっている。
+		// 後続の処理で、添付ファイルを削除する際に、`$data['value5__attach_del'] = 'on'`がないと削除してくれないため、
+		// $dataを引数$dataにある値を戻す。
+		foreach ($deleteFiles as $colNo) {
+			$delColumn = 'value' . $colNo . '_attach';
+			$data[$delColumn . '_del'] = 'on';
+		}
+
 		$result = $this->MultidatabaseContentEdit->makeSaveData($data, $metadatas, $isUpdate);
 
 		return $this->__saveContent($result);
@@ -365,7 +373,7 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 			$this->deleteCommentsByContentKey($key);
 
 			// 添付ファイルの削除
-			if (! $this->MultidatabaseContentFile->removeFileByContentKey($key)) {
+			if (! $this->MultidatabaseContentFile->removeFilesByContentKey($key)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
@@ -470,13 +478,15 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 				$attachPasswords
 			);
 
-			$this->commit();
-
 			// ファイルを削除する
 			if (! empty($removeAttachFields)) {
 				$this->MultidatabaseContentFile->removeAttachFile(
-					$removeAttachFields, $data['MultidatabaseContent']['key']);
+					$removeAttachFields,
+					$data['MultidatabaseContent']['key']
+				);
 			}
+
+			$this->commit();
 
 		} catch (Exception $e) {
 			$this->rollback($e);
