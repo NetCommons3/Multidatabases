@@ -130,13 +130,11 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			return false;
 		}
 
-		$frameSetting = $this->MultidatabaseFrameSetting->getMultidatabaseFrameSetting(true);
-		$this->set('multidatabaseFrameSetting', $frameSetting['MultidatabaseFrameSetting']);
-
 		// ゲストアクセスOKのアクションを設定
 		$this->Auth->allow('index', 'detail', 'search');
 
 		$this->_prepare();
+		$this->set('multidatabaseFrameSetting', $this->_frameSetting['MultidatabaseFrameSetting']);
 	}
 
 /**
@@ -503,7 +501,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
  */
 	private function __condSelect() {
 		$pagerNamed = $this->Paginator->Controller->params->named;
-		return $this->MultidatabaseContentSearch->getCondSelect($pagerNamed);
+		return $this->MultidatabaseContentSearch->getCondSelect($pagerNamed, $this->_metadata);
 	}
 
 /**
@@ -546,12 +544,39 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			);
 		}
 
+		$field = [
+			'Block.*',
+			'Like.*',
+			'LikesUser.*',
+			'MultidatabaseContent.id',
+			'MultidatabaseContent.key',
+			'MultidatabaseContent.multidatabase_key',
+			'MultidatabaseContent.multidatabase_id',
+			'MultidatabaseContent.language_id',
+			'MultidatabaseContent.block_id',
+			'MultidatabaseContent.title_icon',
+			'MultidatabaseContent.status',
+			'MultidatabaseContent.is_active',
+			'MultidatabaseContent.is_latest',
+			'MultidatabaseContent.created_user',
+			'MultidatabaseContent.created',
+			'MultidatabaseContent.modified_user',
+			'MultidatabaseContent.modified',
+		];
+
+		foreach ($this->_metadata as $metadata) {
+			if ($metadata['is_visible_list']) {
+				$field[] = 'MultidatabaseContent.' . 'value' . $metadata['col_no'];
+			}
+		}
+
 		$this->Paginator->settings = array_merge(
 			$this->Paginator->settings,
 			[
 				'conditions' => $conditions,
 				'limit' => $this->_frameSetting['MultidatabaseFrameSetting']['content_per_page'],
-				'order' => $this->__condSortOrder()
+				'order' => $this->__condSortOrder(),
+				'fields' => $field
 			]
 		);
 

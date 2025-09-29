@@ -222,7 +222,14 @@ class MultidatabaseMetadata extends MultidatabasesAppModel {
  */
 	public function getMetadatas($multidatabaseId = 0, $extraConditions = []) {
 		if (empty($multidatabaseId)) {
-			if (! $multidatabase = $this->Multidatabase->getMultidatabase()) {
+			$multidatabase = $this->Multidatabase->find('first', [
+				'recursive' => 0,
+				'fields' => 'Multidatabase.id',
+				'conditions' => $this->Multidatabase->getBlockConditionById(),
+				'callbacks' => false,
+			]);
+
+			if (!$multidatabase) {
 				return false;
 			}
 			$multidatabaseId = $multidatabase['Multidatabase']['id'];
