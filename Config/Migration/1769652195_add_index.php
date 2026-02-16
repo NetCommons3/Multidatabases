@@ -21,12 +21,6 @@ class AddIndex1769652195 extends CakeMigration {
 	public $migration = array(
 		'up' => array(
 			'create_field' => array(
-				'multidatabase_contents' => array(
-					'indexes' => array(
-						'idx1_p_multidatabase_contents' => array('column' => array('block_id', 'language_id', 'is_active'), 'unique' => 0),
-						'idx2_p_multidatabase_contents' => array('column' => array('`key`(191)'), 'unique' => 0),
-					),
-				),
 				'multidatabase_metadatas' => array(
 					'indexes' => array(
 						'idx1_p_multidatabase_metadatas' => array('column' => array('multidatabase_id', 'is_title'), 'unique' => 0),
@@ -37,7 +31,6 @@ class AddIndex1769652195 extends CakeMigration {
 		),
 		'down' => array(
 			'drop_field' => array(
-				'multidatabase_contents' => array('indexes' => array('idx1_p_multidatabase_contents', 'idx2_p_multidatabase_contents')),
 				'multidatabase_metadatas' => array('indexes' => array('idx1_p_multidatabase_metadatas', 'idx2_p_multidatabase_metadatas')),
 			),
 		),
