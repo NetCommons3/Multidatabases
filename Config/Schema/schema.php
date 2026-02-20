@@ -214,7 +214,9 @@ class MultidatabasesSchema extends CakeSchema {
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => '0', 'unsigned' => false, 'comment' => '更新者'),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => '更新日時'),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'idx1_p_multidatabase_metadatas' => array('column' => array('multidatabase_id', 'is_title'), 'unique' => 0),
+			'idx2_p_multidatabase_metadatas' => array('column' => array('multidatabase_id', 'position', '`rank`'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
