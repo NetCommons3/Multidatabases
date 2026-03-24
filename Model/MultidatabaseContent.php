@@ -381,6 +381,8 @@ class MultidatabaseContent extends MultidatabasesAppModel {
 				'MultidatabaseContent.Key' => $key,
 			];
 
+			$this->Behaviors->load('Topics.Topics');
+
 			if ($result = $this->deleteAll($conditions, true, true)) {
 				$this->commit();
 			} else {
