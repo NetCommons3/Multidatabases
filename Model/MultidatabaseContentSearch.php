@@ -181,7 +181,11 @@ class MultidatabaseContentSearch extends MultidatabasesAppModel {
 			$sortColDir = 'desc';
 		}
 
-		$sortOrder = ['MultidatabaseContent.' . $sortCol => $sortColDir];
+		$sortOrder = [
+			'MultidatabaseContent.' . $sortCol => $sortColDir,
+			'MultidatabaseContent.created' => $sortColDir,
+			'MultidatabaseContent.id' => $sortColDir
+		];
 
 		return $sortOrder;
 	}
