@@ -442,7 +442,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 		}
 
 		$searchConds = $this->MultidatabaseContentSearch->getSearchConds($query);
-		$conditions = $this->__listBase($searchConds['conditions']);
+		$conditions = $this->__listBase($searchConds ? $searchConds['conditions'] : []);
 
 		// paginatorへ渡すための条件を取得する
 		$this->Paginator->settings = array_merge(
@@ -450,7 +450,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			[
 				'conditions' => $conditions,
 				'limit' => $this->_frameSetting['MultidatabaseFrameSetting']['content_per_page'],
-				'order' => $searchConds['order'],
+				'order' => $searchConds ? $searchConds['order'] : [],
 			]
 		);
 
