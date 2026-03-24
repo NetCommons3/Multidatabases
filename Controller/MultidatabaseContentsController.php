@@ -19,6 +19,7 @@ App::uses('TemporaryFolder', 'Files.Utility');
  *
  * @author Tomoyuki OHNO (Ricksoft Co., Ltd.) <ohno.tomoyuki@ricksoft.jp>
  * @package NetCommons\Multidatabases\Controller
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class MultidatabaseContentsController extends MultidatabasesAppController {
 
@@ -407,6 +408,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
  * 検索
  *
  * @return void
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 	public function search() {
 		// クエリを取得する
@@ -442,7 +444,10 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 		}
 
 		$searchConds = $this->MultidatabaseContentSearch->getSearchConds($query);
-		$conditions = $this->__listBase($searchConds ? $searchConds['conditions'] : []);
+		if (!$searchConds) {
+			$searchConds = ['conditions' => [], 'order' => []];
+		}
+		$conditions = $this->__listBase($searchConds['conditions']);
 
 		// paginatorへ渡すための条件を取得する
 		$this->Paginator->settings = array_merge(
@@ -450,7 +455,7 @@ class MultidatabaseContentsController extends MultidatabasesAppController {
 			[
 				'conditions' => $conditions,
 				'limit' => $this->_frameSetting['MultidatabaseFrameSetting']['content_per_page'],
-				'order' => $searchConds ? $searchConds['order'] : [],
+				'order' => $searchConds['order'],
 			]
 		);
 
